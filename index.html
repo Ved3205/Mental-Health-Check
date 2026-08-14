@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wellness Signal — Student Wellness Analytics</title>
+<meta name="description" content="A quick, non-clinical snapshot of your wellness signal based on daily habits, screen time, sleep, activity, and stress." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <canvas id="particle-field" aria-hidden="true"></canvas>
+  <div class="ambient-glow ambient-glow--a" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow--b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 1C11 6.5 6.5 11 1 11C6.5 11 11 15.5 11 21C11 15.5 15.5 11 21 11C15.5 11 11 6.5 11 1Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">Signal</span>
+    </div>
+    <p class="brand-tagline">for students</p>
+  </header>
+
+  <main class="page">
+
+    <section class="hero">
+      <p class="eyebrow">Student wellness analytics</p>
+      <h1 class="hero-title">Understand your<br><em>wellness signal.</em></h1>
+      <p class="hero-copy">A quick, non-clinical snapshot based on your daily habits, screen time, sleep, activity, and perceived stress.</p>
+      <p class="hero-disclaimer">This is an informational prediction, not a clinical diagnosis.</p>
+    </section>
+
+    <div class="workspace">
+
+      <!-- FORM -->
+      <section class="form-panel" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="visually-hidden">Wellness check-in form</h2>
+
+        <form id="wellness-form" novalidate>
+
+          <fieldset class="form-section">
+            <legend>
+              <span class="section-index">01</span>
+              <span class="section-title">Profile</span>
+            </legend>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="10" max="100" step="1" placeholder="e.g. 21" inputmode="numeric" required />
+                <p class="field-hint">Between 10 and 100.</p>
+                <p class="field-error" id="age-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <p class="field-error" id="gender-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" list="country-list" placeholder="e.g. India" autocomplete="off" required />
+                <datalist id="country-list">
+                  <option value="India"></option>
+                  <option value="USA"></option>
+                  <option value="Canada"></option>
+                  <option value="Australia"></option>
+                  <option value="UK"></option>
+                  <option value="Germany"></option>
+                  <option value="Mexico"></option>
+                  <option value="Turkey"></option>
+                  <option value="France"></option>
+                  <option value="Other"></option>
+                </datalist>
+                <p class="field-hint">Type any country — unlisted ones are grouped as “Other”.</p>
+                <p class="field-error" id="country-error" role="alert"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>
+              <span class="section-index">02</span>
+              <span class="section-title">Digital habits</span>
+            </legend>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="academic_level">Academic level</label>
+                <select id="academic_level" name="academic_level" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="High School">High school</option>
+                  <option value="Undergraduate">Undergraduate</option>
+                  <option value="Graduate">Graduate</option>
+                </select>
+                <p class="field-error" id="academic_level-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="most_used_platform">Most used platform</label>
+                <select id="most_used_platform" name="most_used_platform" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="YouTube">YouTube</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="Snapchat">Snapchat</option>
+                  <option value="Twitter">Twitter</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="WeChat">WeChat</option>
+                  <option value="LINE">LINE</option>
+                  <option value="KakaoTalk">KakaoTalk</option>
+                  <option value="VKontakte">VKontakte</option>
+                </select>
+                <p class="field-error" id="most_used_platform-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="purpose_of_use">Purpose of use</label>
+                <select id="purpose_of_use" name="purpose_of_use" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Education">Education</option>
+                  <option value="Networking">Networking</option>
+                  <option value="News">News</option>
+                </select>
+                <p class="field-error" id="purpose_of_use-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="avg_daily_usage_hours">Avg. daily usage (hours)</label>
+                <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" placeholder="e.g. 4.5" inputmode="decimal" required />
+                <p class="field-hint">Between 0 and 24.</p>
+                <p class="field-error" id="avg_daily_usage_hours-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="daily_unlocks">Daily phone unlocks</label>
+                <input type="number" id="daily_unlocks" name="daily_unlocks" min="0" step="1" placeholder="e.g. 60" inputmode="numeric" required />
+                <p class="field-hint">0 or more.</p>
+                <p class="field-error" id="daily_unlocks-error" role="alert"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>
+              <span class="section-index">03</span>
+              <span class="section-title">Lifestyle</span>
+            </legend>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="study_hours">Study hours</label>
+                <input type="number" id="study_hours" name="study_hours" min="0" max="24" step="0.1" placeholder="e.g. 3" inputmode="decimal" required />
+                <p class="field-hint">Between 0 and 24.</p>
+                <p class="field-error" id="study_hours-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="physical_activity_hours">Physical activity hours</label>
+                <input type="number" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.1" placeholder="e.g. 1" inputmode="decimal" required />
+                <p class="field-hint">Between 0 and 24.</p>
+                <p class="field-error" id="physical_activity_hours-error" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label for="sleep_hours_per_night">Sleep hours per night</label>
+                <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" placeholder="e.g. 7" inputmode="decimal" required />
+                <p class="field-hint">Between 0 and 24.</p>
+                <p class="field-error" id="sleep_hours_per_night-error" role="alert"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>
+              <span class="section-index">04</span>
+              <span class="section-title">Stress</span>
+            </legend>
+
+            <div class="field field-full">
+              <span class="field-label-standalone" id="stress-label">Perceived stress level</span>
+              <div class="segmented" role="radiogroup" aria-labelledby="stress-label" id="stress_level">
+                <button type="button" class="segment" role="radio" aria-checked="false" data-value="Low">Low</button>
+                <button type="button" class="segment" role="radio" aria-checked="false" data-value="Medium">Medium</button>
+                <button type="button" class="segment" role="radio" aria-checked="false" data-value="High">High</button>
+                <button type="button" class="segment" role="radio" aria-checked="false" data-value="Very High">Very High</button>
+              </div>
+              <p class="field-error" id="stress_level-error" role="alert"></p>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <p class="form-footnote">Your answers stay in this session and are only used to generate your signal.</p>
+            <button type="submit" class="btn-primary" id="submit-btn">
+              <span class="btn-label">Reveal my signal</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- RESULT -->
+      <aside class="result-panel" aria-labelledby="result-heading">
+        <h2 id="result-heading" class="visually-hidden">Your wellness signal</h2>
+
+        <div class="result-card" id="result-card" aria-live="polite">
+
+          <!-- Empty state -->
+          <div class="result-state" id="state-empty">
+            <p class="result-kicker">Your wellness signal</p>
+            <div class="gauge-shell gauge-shell--idle" aria-hidden="true">
+              <svg viewBox="0 0 240 140" class="gauge-svg">
+                <path d="M 20 130 A 100 100 0 0 1 220 130" class="gauge-track" />
+              </svg>
+              <div class="gauge-idle-mark">—</div>
+            </div>
+            <p class="result-empty-copy">Complete the check-in to see your personalized signal.</p>
+          </div>
+
+          <!-- Loading state -->
+          <div class="result-state" id="state-loading" hidden>
+            <p class="result-kicker">Reading your signal…</p>
+            <div class="pulse-loader" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="result-loading-copy">Sending your check-in to the prediction service.</p>
+          </div>
+
+          <!-- Success state -->
+          <div class="result-state" id="state-success" hidden>
+            <p class="result-kicker">Your wellness signal</p>
+
+            <div class="gauge-shell">
+              <svg viewBox="0 0 240 140" class="gauge-svg">
+                <path d="M 20 130 A 100 100 0 0 1 220 130" class="gauge-track" />
+                <path d="M 20 130 A 100 100 0 0 1 220 130" class="gauge-fill" id="gauge-fill" pathLength="100" />
+                <g class="gauge-ticks" id="gauge-ticks"></g>
+              </svg>
+              <div class="gauge-readout">
+                <span class="gauge-score" id="score-value">0.0</span>
+                <span class="gauge-max">/ 10</span>
+              </div>
+            </div>
+
+            <p class="result-status" id="result-status">
+              <span class="status-dot" id="status-dot" aria-hidden="true"></span>
+              <span id="status-text">Signal: balanced</span>
+            </p>
+
+            <p class="result-explainer" id="result-explainer"></p>
+
+            <button type="button" class="btn-secondary" id="reset-btn">Run another check-in</button>
+          </div>
+
+          <!-- Error state -->
+          <div class="result-state" id="state-error" hidden>
+            <p class="result-kicker result-kicker--error">Something didn’t go through</p>
+            <p class="result-error-copy">Make sure the prediction service is running and try again.</p>
+            <p class="result-error-detail" id="error-detail"></p>
+            <button type="button" class="btn-secondary" id="retry-btn">Try again</button>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built for reflection, not diagnosis. If you’re struggling, please talk to someone you trust.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

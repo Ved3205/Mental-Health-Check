@@ -1,0 +1,5 @@
+__pycache__/
+.ipynb_checkpoints/
+.virtual_documents/
+anaconda_projects/
+ML Project.html
