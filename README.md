@@ -825,5 +825,3 @@ Government Engineering College, Aurangabad
 **[Launch the Mental Health Score Predictor](https://mental-health-check-1-1wft.onrender.com/)**
 
 **[Explore the GitHub Repository](https://github.com/Ved3205/Mental-Health-Check)**
-
-```
