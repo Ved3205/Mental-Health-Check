@@ -806,8 +806,6 @@ The predicted score is **not a medical diagnosis** and should not be used as a s
 **Honors in Artificial Intelligence**
 Government Engineering College, Aurangabad
 
-**CGPA:** 8.61 / 10
-
 ### Skills demonstrated through this project
 
 `Python` · `Pandas` · `NumPy` · `Scikit-learn` · `Machine Learning` · `FastAPI` · `Pydantic` · `REST APIs` · `JavaScript` · `Joblib` · `Git` · `Render`
