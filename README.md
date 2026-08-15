@@ -1,4 +1,4 @@
-````markdown
+
 # Mental Health Score Predictor
 
 > An end-to-end Machine Learning application that predicts a mental health score from student lifestyle, academic, social-media usage, and behavioral factors.
